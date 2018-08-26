@@ -1,0 +1,44 @@
+//To Create a database named Student
+var MongoClient = require('mongodb').MongoClient;
+//Connection Url
+var url = "mongodb://localhost:27017/StudentDB";
+
+MongoClient.connect(url, function(err, db) {
+   if(err) throw err;
+   var dbname = db.db.("Student");
+   var dbobj = { _id: 2001, rollno:12744, name: "Vimal" };
+   dbname.collection("Student").insertOne(dbobj, function(err,res) {
+   if(err) throw err;
+     console.log("Database created Successfully");
+  
+});
+
+//To Read the document in the database
+  dbname.collection("Student").find().toArray(function(err,result){
+    if(err) throw err;
+    console.log(result);
+    output = result;
+    console.log("Documents in the Database Read Successfully");
+ });
+});
+
+//To Update the document in the database
+MongoClient.connect(url, function(err, db) {
+   if(err) throw err;
+   var dbobj = { _id: 2001, rollno:12744, name: "Kamal" };
+   dbname.collection("Student").updateOne(dbobj, function(err,res) {
+   if(err) throw err;
+     console.log("Documents in the Database Updated Successfully");
+  
+});
+
+//To Delete document form collection
+MongoClient.connect(url, function(err, db) {
+   if(err) throw err;
+   var dbobj = { _id: 2001, rollno:12744, name: "Kamal" };
+   dbname.collection("Student").deleteOne(dbobj, function(err,res) {
+   if(err) throw err;
+     console.log("Documents in the Database Deleted Successfully");
+  
+});
+   
